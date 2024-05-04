@@ -2,37 +2,34 @@ import React from 'react';
 import {
   StyleSheet,
 } from 'react-native';
-import { Card } from 'react-native-paper';
+import { Card, Button, Text} from 'react-native-paper';
 
 const MovieTile = (data: any): React.JSX.Element =>  {
 
-console.log('d: ', data);
 const { Poster, Title, Year } = data.data;
   return (
-    <Card style={{marginVertical: 10, marginHorizontal:5 }}>
-    <Card.Title title={Title} subtitle={`Year: ${Year}`}  />
-    <Card.Cover style={{ marginVertical:4 }} resizeMode='contain' source={{ uri: Poster }} />
-   
-    {/* <Card.Actions>
-      <Button>Cancel</Button>
-      <Button>Ok</Button>
-    </Card.Actions> */}
-</Card>
+    <Card style={styles.cardStyle}>
+        <Text variant="titleLarge">{Title}</Text>
+        <Text variant="bodyMedium">{`Year: ${Year}`}</Text>
+        <Card.Cover style={{ marginVertical:4 }} resizeMode='contain' source={{ uri: Poster }} />
+        <Button mode="outlined" style={styles.favButtonStyle} icon="heart" mode="contained" onPress={() => console.log('Pressed')}>
+            Favourite
+        </Button>
+    </Card>
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainerStyle: {
-    flex: 1,
-  },
-  resultContainer: {
-    justifyContent:"center"
-  },
-  inputBoxStyle: {
-    fontSize: 24,
-    fontWeight: '300',
-    margin: 10,
-  },
+  cardStyle: {
+    marginVertical: 10, 
+    marginHorizontal:5, 
+    padding:10
+},
+favButtonStyle: {
+    width:'50%', 
+    alignSelf: 'flex-end', 
+    margin:4
+}
 });
 
 export default MovieTile;
