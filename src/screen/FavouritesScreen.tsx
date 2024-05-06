@@ -7,13 +7,15 @@ import {
 import { ActivityIndicator, HelperText, Searchbar } from 'react-native-paper';
 import { useFetchMovies } from '../helpers/fetchMovies';
 import MovieTile from '../components/MovieTile';
+import { fetchRequest } from '../helpers/APIRequest';
 
-const LandingScreen = (): React.JSX.Element =>  {
+const FavouritesScreen = (): React.JSX.Element =>  {
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const {data, loading, error} = useFetchMovies(`https://www.omdbapi.com/?s=${searchTerm}&type=movie&apikey=776952d3`, searchTerm);
-
+  const {data, loading, error} = useFetchMovies(`http://localhost:3001/favourites`);
+  
+  console.log('Fe : ', fetchRequest("http://localhost:3001/favourites", "POST", {"imdbID":"dsfasdf4f", "title": "Test Movie 01", "year": "1997", "poster": "adsfsadfasd"}));
   const renderEmptyList = () => {
+
     if (data?.Error === "Too many results.") {
       return <HelperText type="info">
                 Try to narrow your search!
@@ -31,23 +33,14 @@ const LandingScreen = (): React.JSX.Element =>  {
 
   return (
     <View style={styles.mainContainerStyle}>
-        <Searchbar
-            placeholder="Search for movies"
-            value={searchTerm}
-            style={styles.inputBoxStyle}
-            onChangeText={text => setSearchTerm(text)}
-          />
       <View style={styles.resultContainer}>
-      {loading ? 
-      <ActivityIndicator animating={true} color={'lightoranged'} />
-     : searchTerm ?
      <FlatList
         data={data?.Search}
         contentContainerStyle={{ paddingBottom: 80 }}
         renderItem={(item) => <MovieTile data={item.item} /> }
         keyExtractor={item => item?.imdbID}
         ListEmptyComponent={renderEmptyList}
-      />: null}
+      />
       </View>
     </View>
   );
@@ -67,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LandingScreen;
+export default FavouritesScreen;

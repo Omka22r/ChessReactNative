@@ -7,7 +7,8 @@ import { PaperProvider } from 'react-native-paper';
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
-import LandingScreen from './src/screen/LandingScreen';
+
+import TabView from './src/navigation/TabView';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -19,7 +20,7 @@ function App(): React.JSX.Element {
   return (
     <PaperProvider>
        <SafeAreaView style={backgroundStyle}>
-      <LandingScreen/>
+     <TabView/>
     </SafeAreaView>
     </PaperProvider>
    
