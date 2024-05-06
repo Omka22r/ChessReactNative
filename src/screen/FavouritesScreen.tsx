@@ -1,46 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
   FlatList,
 } from 'react-native';
-import { ActivityIndicator, HelperText, Searchbar } from 'react-native-paper';
+import { HelperText, ActivityIndicator } from 'react-native-paper';
 import { useFetchMovies } from '../helpers/fetchMovies';
 import MovieTile from '../components/MovieTile';
-import { fetchRequest } from '../helpers/APIRequest';
 
 const FavouritesScreen = (): React.JSX.Element =>  {
 
-  const {data, loading, error} = useFetchMovies(`http://localhost:3001/favourites`);
+  const {data, loading, error} = useFetchMovies(`http://localhost:3001/favourites`, '');
   
-  console.log('Fe : ', fetchRequest("http://localhost:3001/favourites", "POST", {"imdbID":"dsfasdf4f", "title": "Test Movie 01", "year": "1997", "poster": "adsfsadfasd"}));
   const renderEmptyList = () => {
-
-    if (data?.Error === "Too many results.") {
+    if (data?.favourite.length === 0) {
       return <HelperText type="info">
-                Try to narrow your search!
-              </HelperText>;
-    }
-    if (data?.Error === "Movie not found!") {
-      return <HelperText type="error">
-                No movies found!
+                No movies added to favourites!
               </HelperText>;
     }
     return <HelperText type="error">
-              Something went wrong. Try again!
+              Something went wrong with local backend API. Try again!
             </HelperText>;
   }
 
   return (
     <View style={styles.mainContainerStyle}>
       <View style={styles.resultContainer}>
-     <FlatList
-        data={data?.Search}
-        contentContainerStyle={{ paddingBottom: 80 }}
-        renderItem={(item) => <MovieTile data={item.item} /> }
-        keyExtractor={item => item?.imdbID}
-        ListEmptyComponent={renderEmptyList}
-      />
+        {
+    loading ? 
+      <ActivityIndicator animating={true} color={'orange'} /> 
+      :
+      <FlatList
+      data={data?.favourite}
+      contentContainerStyle={{ paddingBottom: 80 }}
+      renderItem={(item) => <MovieTile data={{...item.item, saved: true}} favouritesView /> }
+      keyExtractor={item => item?.imdbID}
+      ListEmptyComponent={renderEmptyList}
+    />}
+     
       </View>
     </View>
   );

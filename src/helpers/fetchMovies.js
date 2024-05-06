@@ -11,7 +11,6 @@ export const useFetchMovies = (url, searchTerm) => {
             setLoading(true);
             const response = await fetch(url);
             const json = await response.json();
-            
             setData(json);
 
         } catch(error){

@@ -28,7 +28,7 @@ const LandingScreen = (): React.JSX.Element =>  {
               Something went wrong. Try again!
             </HelperText>;
   }
-
+  
   return (
     <View style={styles.mainContainerStyle}>
         <Searchbar
@@ -39,15 +39,15 @@ const LandingScreen = (): React.JSX.Element =>  {
           />
       <View style={styles.resultContainer}>
       {loading ? 
-      <ActivityIndicator animating={true} color={'lightoranged'} />
+      <ActivityIndicator animating={true} color={'orange'} />
      : searchTerm ?
-     <FlatList
-        data={data?.Search}
-        contentContainerStyle={{ paddingBottom: 80 }}
-        renderItem={(item) => <MovieTile data={item.item} /> }
-        keyExtractor={item => item?.imdbID}
-        ListEmptyComponent={renderEmptyList}
-      />: null}
+      <FlatList
+          data={data?.Search}
+          contentContainerStyle={{ paddingBottom: 80 }}
+          renderItem={(item) => <MovieTile data={item.item} /> }
+          keyExtractor={item => item?.imdbID}
+          ListEmptyComponent={renderEmptyList}
+        /> : null}
       </View>
     </View>
   );

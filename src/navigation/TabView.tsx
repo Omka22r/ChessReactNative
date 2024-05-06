@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { BottomNavigation, Text } from 'react-native-paper';
+import { BottomNavigation } from 'react-native-paper';
 import LandingScreen from '../screen/LandingScreen';
 import FavouritesScreen from '../screen/FavouritesScreen';
 
 const SearchTab = () => <LandingScreen/>;
-
-const FavouritesTab = () => <FavouritesScreen/>;
 
 const TabView = () => {
   const [index, setIndex] = React.useState(0);
@@ -17,7 +15,7 @@ const TabView = () => {
 
   const renderScene = BottomNavigation.SceneMap({
     search: SearchTab,
-    favourites: FavouritesTab,
+    favourites:() => <FavouritesScreen/>,
 
   });
 
