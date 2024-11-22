@@ -8,7 +8,7 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-import TabView from './src/navigation/TabView';
+import GameScreen from './src/screen/GameScreen';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -20,7 +20,7 @@ function App(): React.JSX.Element {
   return (
     <PaperProvider>
        <SafeAreaView style={backgroundStyle}>
-     <TabView/>
+     <GameScreen/>
     </SafeAreaView>
     </PaperProvider>
    
