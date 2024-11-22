@@ -8,7 +8,10 @@ import {
 } from 'react-native';
 
 const GameScreen = (): React.JSX.Element =>  {
-
+    // 1E01 -> Player 1 Elephant 01
+    // 1PO1 -> Player 1 Pawn 01
+    // 1PO2 -> Player 2 Pawn 02
+    // 2E02 -> Player 2 Elephant 02
     const picesList = [
       '1E01', '1H01', '1C01', '1K01', '1Q01', '1C02', '1H02', '1E02',
       '1P01','1P02','1P03','1P04','1P05','1P06','1P07','1P08',
@@ -20,7 +23,7 @@ const GameScreen = (): React.JSX.Element =>  {
       '1E01': 0, '1H01': 1, '1C01': 2, '1K01':3, '1Q01': 4, '1C02': 5, '1H02': 6, '1E02': 7,
       '1P01': 8,'1P02': 9,'1P03': 10,'1P04': 11,'1P05': 12,'1P06': 13,'1P07': 14,'1P08': 15,
       '2P01': 48,'2P02': 49,'2P03': 50,'2P04': 51,'2P05': 52,'2P06': 53,'2P07': 54,'2P08': 55,
-      '2E01': 56, '2H01': 57, '2C01': 58, '2K01':59, '2Q01': 60, '2C02': 61, '2H02': 62, '2E02': 63
+      '2E01': 56, '2H01': 57, '2C01': 58, '2K01': 59, '2Q01': 60, '2C02': 61, '2H02': 62, '2E02': 63
     } ;
 
     const [startGame, setStartGame] = useState(false);
@@ -49,13 +52,8 @@ const GameScreen = (): React.JSX.Element =>  {
       const tabs = Array.from({length: 64});
        return  tabs.map((i, index) => {
             return <View style={{...styles.slotStyle, backgroundColor: index % 2 === 0 ? 'white' : 'black'}}>
-                         
-                               
-                               {   renderChessPiece(index, boardPositions)}
-                                 
-                           
-                            
-              </View>
+                      {renderChessPiece(index, boardPositions)}
+                  </View>
               
         })
   };
@@ -64,7 +62,14 @@ const GameScreen = (): React.JSX.Element =>  {
     <View style={styles.mainContainerStyle}>
       <View style={styles.headerContainer}>
       <View style={{flex: 1, justifyContent:'center', alignItems:'center' }}>
-        {!startGame ? <Button onPress={() => {setStartGame(true); setBoardPositions(piecePositionsInitially)}} title='Start Game'/> : <Text>Player 1 move</Text>}
+        {!startGame ? 
+          <Button onPress={() => {
+            setStartGame(true); 
+            setBoardPositions(piecePositionsInitially)}} 
+            title='Start Game'/> 
+            : 
+            <Text>{`Player 1 move ${!selectedPiece ? ': Select a piece': selectedPiece}`}</Text>
+        }
       </View>
       </View>
       <Text style={{alignSelf: 'center', paddingVertical:12}}>Player 1</Text>
@@ -79,7 +84,6 @@ const GameScreen = (): React.JSX.Element =>  {
 const styles = StyleSheet.create({
   mainContainerStyle: {
     flex: 1,
-
   },
   headerContainer:{
     flex:2,
